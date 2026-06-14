@@ -1,5 +1,3 @@
-// Keeping the schema in its own file means the component file only
-// contains UI logic — a standard separation-of-concerns pattern.
 import * as yup from 'yup';
 
 export const registrationSchema = yup.object({

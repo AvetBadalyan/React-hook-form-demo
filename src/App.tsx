@@ -3,8 +3,6 @@ import { RegistrationForm } from './components/RegistrationForm';
 import { PostsSection } from './components/PostsSection';
 import { Card } from './components/ui/Card';
 
-// ─── Styled components ────────────────────────────────────────────────────────
-
 const PageWrapper = styled.div`
   max-width: 900px;
   margin: 0 auto;
@@ -38,9 +36,6 @@ const AppSubtitle = styled.p`
   font-weight: 600;
 `;
 
-// ─── Intro / about card ───────────────────────────────────────────────────────
-// Extends the shared Card component — no duplicated CSS.
-// `as="section"` swaps the underlying <div> to a semantic <section> element.
 const IntroCard = styled(Card)`
   margin-bottom: 3.2rem;
 `;
@@ -90,7 +85,6 @@ const MatchItem = styled.div`
   }
 `;
 
-// Inline anchor that matches the JTP brand colour
 const ThemeLink = styled.a`
   color: ${({ theme }) => theme.colors.primary};
   font-weight: 700;
@@ -117,8 +111,6 @@ const Spacer = styled.div`
   height: 3.2rem;
 `;
 
-// ─── Component ────────────────────────────────────────────────────────────────
-
 export default function App() {
   return (
     <PageWrapper>
@@ -131,7 +123,6 @@ export default function App() {
         </AppSubtitle>
       </Header>
 
-      {/* ── About section ── */}
       <IntroCard as="section">
         <IntroHeading>Hi, I'm Avet — and here's why I built this app</IntroHeading>
 

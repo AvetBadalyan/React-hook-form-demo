@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { fetchPosts, type Post } from '../api/posts';
 import { Card, CardTitle, CardSubtitle } from './ui/Card';
 
-// ─── Styled components ────────────────────────────────────────────────────────
-
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -40,7 +38,6 @@ const UserTag = styled.span`
   display: inline-block;
   font-size: 1.4rem;
   font-weight: 700;
-  /* hex opacity suffix: theme colour + '1a' = ~10% opacity */
   background: ${({ theme }) => theme.colors.primary}1a;
   color: ${({ theme }) => theme.colors.primary};
   border-radius: 999px;
@@ -79,8 +76,6 @@ const RefetchButton = styled.button`
   }
 `;
 
-// ─── Helper: single post card ─────────────────────────────────────────────────
-// Extracting a small presentational component keeps the list render clean.
 function PostItem({ post }: { post: Post }) {
   return (
     <PostCard>
@@ -91,19 +86,18 @@ function PostItem({ post }: { post: Post }) {
   );
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
 export function PostsSection() {
   const {
-    data,       // typed as Post[] | undefined (undefined while loading)
-    isLoading,  // true only on the very first fetch (no cached data yet)
-    isError,    // true if the request threw an error
-    error,      // the Error object — typed as Error | null by TanStack Query v5
-    isFetching, // true on any fetch, including background refetches
-    refetch,    // manually trigger a refetch
+    data,
+    isLoading,
+    isError,
+    error,
+    isFetching,
+    refetch,
   } = useQuery({
-    queryKey: ['posts'],   // cache key — the same key anywhere reuses this data
-    queryFn: fetchPosts,   // the function that actually fetches
-    staleTime: 1000 * 60,  // keep data "fresh" for 1 minute before refetching
+    queryKey: ['posts'],
+    queryFn: fetchPosts,
+    staleTime: 1000 * 60,
   });
 
   return (
@@ -128,7 +122,6 @@ export function PostsSection() {
         </Grid>
       )}
 
-      {/* void tells TS we intentionally discard the returned Promise */}
       <RefetchButton onClick={() => { void refetch(); }} disabled={isFetching}>
         {isFetching ? 'Fetching…' : 'Refetch posts'}
       </RefetchButton>

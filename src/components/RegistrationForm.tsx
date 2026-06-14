@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import { Card, CardTitle, CardSubtitle } from './ui/Card';
 import { registrationSchema, type RegistrationFormData } from '../schemas/registration';
 
-// ─── Styled components ────────────────────────────────────────────────────────
-// Every visual piece is a named component — no inline styles anywhere.
-
 const FieldGroup = styled.div`
   display: flex;
   flex-direction: column;
@@ -20,9 +17,6 @@ const Label = styled.label`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-// $error is a "transient prop" (the $ prefix).
-// Styled-components uses it for styling but does NOT forward it to the DOM,
-// which prevents React warnings about unknown HTML attributes.
 const Input = styled.input<{ $error?: boolean }>`
   width: 100%;
   padding: 1rem 1.4rem;
@@ -38,7 +32,6 @@ const Input = styled.input<{ $error?: boolean }>`
   &:focus {
     border-color: ${({ theme, $error }) =>
       $error ? theme.colors.danger : theme.colors.primary};
-    /* Append '29' (hex for ~16% opacity) to the theme colour — no hardcoded values */
     box-shadow: 0 0 0 3px ${({ theme, $error }) =>
       $error ? `${theme.colors.danger}29` : `${theme.colors.primary}29`};
   }
@@ -65,7 +58,6 @@ const Select = styled.select<{ $error?: boolean }>`
 
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary};
-    /* Same '29' hex-opacity pattern used on Input focus */
     box-shadow: 0 0 0 3px ${({ theme }) => `${theme.colors.primary}29`};
   }
 `;
@@ -75,7 +67,6 @@ const ErrorMsg = styled.span`
   color: ${({ theme }) => theme.colors.danger};
 `;
 
-// Two-column layout that stacks to one column on small screens
 const Row = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -131,7 +122,6 @@ const SuccessBanner = styled.div`
   font-weight: 600;
 `;
 
-// A proper styled component instead of an inline style object
 const ResetLink = styled.button`
   background: none;
   border: none;
@@ -141,31 +131,29 @@ const ResetLink = styled.button`
   text-decoration: underline;
 `;
 
-// ─── Component ────────────────────────────────────────────────────────────────
 export function RegistrationForm() {
   const {
-    register,     // connects an <input> to React Hook Form (no useState needed)
-    handleSubmit, // validates the form then calls your submit function
-    reset,        // clears all fields back to defaultValues
+    register,
+    handleSubmit,
+    reset,
     formState: {
-      errors,             // object with validation error messages per field
-      isSubmitting,       // true while your async onSubmit is running
-      isSubmitSuccessful, // true once onSubmit resolves without throwing
+      errors,
+      isSubmitting,
+      isSubmitSuccessful,
     },
   } = useForm<RegistrationFormData>({
-    resolver: yupResolver(registrationSchema), // connect Yup schema to RHF
+    resolver: yupResolver(registrationSchema),
     defaultValues: {
       name: '',
       email: '',
-      age: undefined,   // number fields start as undefined (not 0)
-      role: undefined,  // must be undefined, not '' — the type is a string literal union
+      age: undefined,
+      role: undefined,
       password: '',
       confirmPassword: '',
       agree: false,
     },
   });
 
-  // Called only when ALL Yup rules pass — RHF handles the rest
   const onSubmit = async (data: RegistrationFormData) => {
     await new Promise((resolve) => setTimeout(resolve, 800)); // simulate API call
     console.log('Form submitted:', data);
@@ -188,7 +176,6 @@ export function RegistrationForm() {
         </SuccessBanner>
       )}
 
-      {/* noValidate disables the browser's built-in validation so Yup is always used */}
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Row>
           <FieldGroup>
@@ -266,8 +253,6 @@ export function RegistrationForm() {
           </FieldGroup>
         </Row>
 
-        {/* Wrapping label already links to the checkbox — no htmlFor needed.
-            Adding htmlFor on top would fire the toggle twice on click. */}
         <CheckRow>
           <input id="agree" type="checkbox" {...register('agree')} />
           I agree to the Terms & Conditions
