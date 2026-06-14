@@ -2,6 +2,8 @@
 
 > A focused demo app built by **Avet Badalyan** to demonstrate the exact stack listed in the JobTestPrep Junior Front-End Developer job description: React Hook Form, Yup, styled-components, TanStack Query, and Axios — all in strict TypeScript.
 
+**[Live demo →](https://jobtestprep-demo.web.app)**
+
 ![App overview](./screenshots/Screenshot%202026-06-14%20180521.png)
 
 ---
